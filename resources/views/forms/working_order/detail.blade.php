@@ -98,7 +98,7 @@
                             <div class="panel-body">
                             <div class="col-md-12">
                                     <div class="form-group">
-                                        <h4 class="col-sm-2" style="font-style: italic;">#1 DETIL PELAPORAN</h4>
+                                        <h4 class="col-sm-2" style="font-style: italic;">#1 DETAIL PELAPORAN</h4>
                                     </div>
                                 </div>
 
@@ -180,7 +180,7 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <h4 class="col-sm-2" style="font-style: italic;">#2 DETIL PENUGASAN</h4>
+                                        <h4 class="col-sm-2" style="font-style: italic;">#2 DETAIL PENUGASAN</h4>
                                     </div>
                                 </div>
 
@@ -238,7 +238,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <h4 class="col-sm-2" style="font-style: italic;">#3 DETIL PENGERJAAN</h4>
+                                        <h4 class="col-sm-2" style="font-style: italic;">#3 DETAIL PENGERJAAN</h4>
                                     </div>
                                 </div>
 

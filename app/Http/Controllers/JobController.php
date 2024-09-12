@@ -177,12 +177,12 @@ class JobController extends Controller
                 'job'                 => '',
                 'job_description'     => $description,
                 'active'              => 1,
-                'start_effective'     => Carbon::now(),
+                'start_effective'     => Carbon::now()->timezone('Asia/Jakarta'),
                 'end_effective'       => null,
                 'created_by'          => Auth::user()->id,
-                'created_at'          => Carbon::now(),
+                'created_at'          => Carbon::now()->timezone('Asia/Jakarta'),
                 'updated_by'          => Auth::user()->id,
-                'updated_at'          => Carbon::now(),
+                'updated_at'          => Carbon::now()->timezone('Asia/Jakarta'),
             ]);
             $insertjiob->save();
 
@@ -197,7 +197,7 @@ class JobController extends Controller
                 'end_effective'       => $insertjiob->end_effective,
                 'action'              => 'CREATE',
                 'created_by'          => Auth::user()->id,
-                'created_at'          => Carbon::now(),
+                'created_at'          => Carbon::now()->timezone('Asia/Jakarta'),
             ]);
             $insertJobHist->save();
 
@@ -223,9 +223,9 @@ class JobController extends Controller
             DB::beginTransaction();
             if ($job) {
                 $job->active         = 0;
-                $job->end_effective  = Carbon::now();
+                $job->end_effective  = Carbon::now()->timezone('Asia/Jakarta');
                 $job->updated_by     = Auth::user()->id;
-                $job->updated_at     = Carbon::now();
+                $job->updated_at     = Carbon::now()->timezone('Asia/Jakarta');
                 $job->save();
 
                 $insertJobHist = new JobHist([
@@ -239,7 +239,7 @@ class JobController extends Controller
                     'end_effective'       => $job->end_effective,
                     'action'              => 'UPDATE',
                     'created_by'          => Auth::user()->id,
-                    'created_at'          => Carbon::now(),
+                    'created_at'          => Carbon::now()->timezone('Asia/Jakarta'),
                 ]);
                 $insertJobHist->save();
 

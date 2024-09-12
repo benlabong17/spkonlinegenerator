@@ -144,12 +144,12 @@ class BasecampController extends Controller
                 'basecamp'              => $basecampName,
                 'basecamp_description'  => $description,
                 'active'                => 1,
-                'start_effective'       => Carbon::now(),
+                'start_effective'       => Carbon::now()->timezone('Asia/Jakarta'),
                 'end_effective'         => null,
                 'created_by'            => Auth::user()->id,
-                'created_at'            => Carbon::now(),
+                'created_at'            => Carbon::now()->timezone('Asia/Jakarta'),
                 'updated_by'            => Auth::user()->id,
-                'updated_at'            => Carbon::now(),
+                'updated_at'            => Carbon::now()->timezone('Asia/Jakarta'),
             ]);
             $insertBasecamp->save();
 
@@ -162,7 +162,7 @@ class BasecampController extends Controller
                 'end_effective'         => $insertBasecamp->end_effective,
                 'action'                => 'CREATE',
                 'created_by'            => Auth::user()->id,
-                'created_at'            => Carbon::now(),
+                'created_at'            => Carbon::now()->timezone('Asia/Jakarta'),
             ]);
             $insertbasecampHist->save();
 
@@ -188,9 +188,9 @@ class BasecampController extends Controller
             DB::beginTransaction();
             if ($basecamp) {
                 $basecamp->active         = 0;
-                $basecamp->end_effective  = Carbon::now();
+                $basecamp->end_effective  = Carbon::now()->timezone('Asia/Jakarta');
                 $basecamp->updated_by     = Auth::user()->id;
-                $basecamp->updated_at     = Carbon::now();
+                $basecamp->updated_at     = Carbon::now()->timezone('Asia/Jakarta');
                 $basecamp->save();
 
                 $insertbasecampHist = new BasecampHist([
@@ -202,7 +202,7 @@ class BasecampController extends Controller
                     'end_effective'         => $basecamp->end_effective,
                     'action'                => 'UPDATE',
                     'created_by'            => Auth::user()->id,
-                    'created_at'            => Carbon::now(),
+                    'created_at'            => Carbon::now()->timezone('Asia/Jakarta'),
                 ]);
                 $insertbasecampHist->save();
 

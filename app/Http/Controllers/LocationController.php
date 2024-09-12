@@ -177,12 +177,12 @@ class LocationController extends Controller
                 'province'                => '',
                 'country'                 => '',
                 'active'                  => 1,
-                'start_effective'         => Carbon::now(),
+                'start_effective'         => Carbon::now()->timezone('Asia/Jakarta'),
                 'end_effective'           => null,
                 'created_by'              => Auth::user()->id,
-                'created_at'              => Carbon::now(),
+                'created_at'              => Carbon::now()->timezone('Asia/Jakarta'),
                 'updated_by'              => Auth::user()->id,
-                'updated_at'              => Carbon::now(),
+                'updated_at'              => Carbon::now()->timezone('Asia/Jakarta'),
             ]);
             $insertLocation->save();
 
@@ -204,7 +204,7 @@ class LocationController extends Controller
                 'end_effective'           => $insertLocation->end_effective,
                 'action'                  => 'CREATE',
                 'created_by'              => Auth::user()->id,
-                'created_at'              => Carbon::now(),
+                'created_at'              => Carbon::now()->timezone('Asia/Jakarta'),
             ]);
             $insertLocationHist->save();
 
@@ -236,9 +236,9 @@ class LocationController extends Controller
             DB::beginTransaction();
             if ($location) {
                 $location->active         = 0;
-                $location->end_effective  = Carbon::now();
+                $location->end_effective  = Carbon::now()->timezone('Asia/Jakarta');
                 $location->updated_by     = Auth::user()->id;
-                $location->updated_at     = Carbon::now();
+                $location->updated_at     = Carbon::now()->timezone('Asia/Jakarta');
                 $location->save();
 
                 $insertLocationHist = new LocationHist([
@@ -259,7 +259,7 @@ class LocationController extends Controller
                     'end_effective'           => $location->end_effective,
                     'action'                  => 'UPDATE',
                     'created_by'              => Auth::user()->id,
-                    'created_at'              => Carbon::now(),
+                    'created_at'              => Carbon::now()->timezone('Asia/Jakarta'),
                 ]);
                 $insertLocationHist->save();
 

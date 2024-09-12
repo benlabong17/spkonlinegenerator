@@ -157,12 +157,12 @@ class DeviceCategoryController extends Controller
                 'device_category'      => $device_category,
                 'disturbance_category' => $disturbance_category,
                 'active'               => 1,
-                'start_effective'      => Carbon::now(),
+                'start_effective'      => Carbon::now()->timezone('Asia/Jakarta'),
                 'end_effective'        => null,
                 'created_by'           => Auth::user()->id,
-                'created_at'           => Carbon::now(),
+                'created_at'           => Carbon::now()->timezone('Asia/Jakarta'),
                 'updated_by'           => Auth::user()->id,
-                'updated_at'           => Carbon::now(),
+                'updated_at'           => Carbon::now()->timezone('Asia/Jakarta'),
             ]);
             $insertDeviceCategory->save();
 
@@ -175,7 +175,7 @@ class DeviceCategoryController extends Controller
                 'end_effective'        => $insertDeviceCategory->end_effective,
                 'action'               => 'CREATE',
                 'created_by'           => Auth::user()->id,
-                'created_at'           => Carbon::now(),
+                'created_at'           => Carbon::now()->timezone('Asia/Jakarta'),
             ]);
             $insertDeviceCategoryHist->save();
 
@@ -201,9 +201,9 @@ class DeviceCategoryController extends Controller
             DB::beginTransaction();
             if ($deviceCategory) {
                 $deviceCategory->active         = 0;
-                $deviceCategory->end_effective  = Carbon::now();
+                $deviceCategory->end_effective  = Carbon::now()->timezone('Asia/Jakarta');
                 $deviceCategory->updated_by     = Auth::user()->id;
-                $deviceCategory->updated_at     = Carbon::now();
+                $deviceCategory->updated_at     = Carbon::now()->timezone('Asia/Jakarta');
                 $deviceCategory->save();
 
                 $insertDeviceCategoryHist = new DeviceCategoryHist([
@@ -215,7 +215,7 @@ class DeviceCategoryController extends Controller
                     'end_effective'        => $deviceCategory->end_effective,
                     'action'               => 'UPDATE',
                     'created_by'           => Auth::user()->id,
-                    'created_at'           => Carbon::now(),
+                    'created_at'           => Carbon::now()->timezone('Asia/Jakarta'),
                 ]);
                 $insertDeviceCategoryHist->save();
 

@@ -266,12 +266,12 @@ class DeviceController extends Controller
                 'serial_number'        => $serial_number,
                 'activa_number'        => $activa_number,
                 'active'               => 1,
-                'start_effective'      => Carbon::now(),
+                'start_effective'      => Carbon::now()->timezone('Asia/Jakarta'),
                 'end_effective'        => null,
                 'created_by'           => Auth::user()->id,
-                'created_at'           => Carbon::now(),
+                'created_at'           => Carbon::now()->timezone('Asia/Jakarta'),
                 'updated_by'           => Auth::user()->id,
-                'updated_at'           => Carbon::now(),
+                'updated_at'           => Carbon::now()->timezone('Asia/Jakarta'),
             ]);
             $insertDevice->save();
 
@@ -290,7 +290,7 @@ class DeviceController extends Controller
                 'end_effective'        => $insertDevice->end_effective,
                 'action'               => 'CREATE',
                 'created_by'           => Auth::user()->id,
-                'created_at'           => Carbon::now(),
+                'created_at'           => Carbon::now()->timezone('Asia/Jakarta'),
             ]);
             $insertDeviceHist->save();
 
@@ -317,9 +317,9 @@ class DeviceController extends Controller
             DB::beginTransaction();
             if ($device) {
                 $device->active         = 0;
-                $device->end_effective  = Carbon::now();
+                $device->end_effective  = Carbon::now()->timezone('Asia/Jakarta');
                 $device->updated_by     = Auth::user()->id;
-                $device->updated_at     = Carbon::now();
+                $device->updated_at     = Carbon::now()->timezone('Asia/Jakarta');
                 $device->save();
 
                 $insertDeviceHist = new DeviceHist([
@@ -337,7 +337,7 @@ class DeviceController extends Controller
                     'end_effective'        => $device->end_effective,
                     'action'               => 'UPDATE',
                     'created_by'           => Auth::user()->id,
-                    'created_at'           => Carbon::now(),
+                    'created_at'           => Carbon::now()->timezone('Asia/Jakarta'),
                 ]);
                 $insertDeviceHist->save();
 
@@ -571,7 +571,7 @@ class DeviceController extends Controller
                 'end_effective'        => $insertDevice->end_effective,
                 'action'               => 'UPDATE',
                 'created_by'           => Auth::user()->id,
-                'created_at'           => Carbon::now(),
+                'created_at'           => Carbon::now()->timezone('Asia/Jakarta'),
             ]);
             $insertDeviceHist->save();
 

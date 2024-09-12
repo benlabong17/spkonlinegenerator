@@ -337,10 +337,17 @@ class WorkingOrderController extends Controller
             $dept_code = Department::where('id', $request->department_id)->first()->department_code;
 
             //get number
-            $cek_number = SpongeHeader::where('wo_number', 'like', '%WO' . '/' . $dept_code . '/' . str_pad($month, 2, 0, STR_PAD_LEFT) . '/' . $year)->orderBy('updated_at', 'desc')->first();
+            // $cek_number = SpongeHeader::where('wo_number', 'like', '%WO' . '/' . $dept_code . '/' . str_pad($month, 2, 0, STR_PAD_LEFT) . '/' . $year)->orderBy('updated_at', 'desc')->first();
+            $cek_number = SpongeHeader::where('wo_number', 'like', '%WO' . '/' . $dept_code . '/' . str_pad($month, 2, 0, STR_PAD_LEFT) . '/' . $year)->pluck('wo_number')->toArray();
             $number = 0;
-            if ($cek_number) {
-                $number = intval(substr($cek_number->wo_number, 0, 5));
+            if (!empty($cek_number)) {
+                // $number = intval(substr($cek_number->wo_number, 0, 5));
+                foreach($cek_number as $wo_number){
+                    $cek = intval(substr($wo_number, 0, 5));
+                    if($number < $cek){
+                        $number = $cek;
+                    }
+                }
             }
             $number++;
 
@@ -440,7 +447,7 @@ class WorkingOrderController extends Controller
             // dd($wo_number_cek);
             return response()->json([
                 'errors' => true,
-                "message" => '<div class="alert alert-danger">Nomor WO sudah terpakai. Mohon muat ulang halaman.</div>'
+                "message" => '<div class="alert alert-danger">Nomor WO sudah terpakai. Mohon klik tombol refresh nomor WO.</div>'
             ]);
         }
         if ($request->wo_category == '' || $request->wo_category == null || $request->wo_category == 'null') {

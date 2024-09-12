@@ -76,12 +76,12 @@ class DepartmentController extends Controller
                 'department_code'         => $departmentCode,
                 'department_description'  => $description,
                 'active'                  => 1,
-                'start_effective'         => Carbon::now(),
+                'start_effective'         => Carbon::now()->timezone('Asia/Jakarta'),
                 'end_effective'           => null,
                 'created_by'              => Auth::user()->id,
-                'created_at'              => Carbon::now(),
+                'created_at'              => Carbon::now()->timezone('Asia/Jakarta'),
                 'updated_by'              => Auth::user()->id,
-                'updated_at'              => Carbon::now(),
+                'updated_at'              => Carbon::now()->timezone('Asia/Jakarta'),
             ]);
             $insertDepartment->save();
 
@@ -95,7 +95,7 @@ class DepartmentController extends Controller
                 'end_effective'           => $insertDepartment->end_effective,
                 'action'                  => 'CREATE',
                 'created_by'              => Auth::user()->id,
-                'created_at'              => Carbon::now(),
+                'created_at'              => Carbon::now()->timezone('Asia/Jakarta'),
             ]);
             $insertDepartmentHist->save();
 
@@ -331,9 +331,9 @@ class DepartmentController extends Controller
             DB::beginTransaction();
             if ($department) {
                 $department->active         = 0;
-                $department->end_effective  = Carbon::now();
+                $department->end_effective  = Carbon::now()->timezone('Asia/Jakarta');
                 $department->updated_by     = Auth::user()->id;
-                $department->updated_at     = Carbon::now();
+                $department->updated_at     = Carbon::now()->timezone('Asia/Jakarta');
                 $department->save();
 
                 $insertDepartmentHist = new DepartmentHist([
@@ -346,7 +346,7 @@ class DepartmentController extends Controller
                     'end_effective'           => $department->end_effective,
                     'action'                  => 'UPDATE',
                     'created_by'              => Auth::user()->id,
-                    'created_at'              => Carbon::now(),
+                    'created_at'              => Carbon::now()->timezone('Asia/Jakarta'),
                 ]);
                 $insertDepartmentHist->save();
 

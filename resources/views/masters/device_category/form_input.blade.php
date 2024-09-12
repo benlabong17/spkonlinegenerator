@@ -15,7 +15,7 @@
         <div class="btn-group" role="group">
             <div class="form-group">
                 <button type="button" name="back" id="back" class="btn btn-secondary" onclick="doBack();"><i class="fa fa-arrow-left"></i> {{ucwords(__('Kembali'))}}</button>
-                <button type="button" name="save" id="saveBtn" class="btn btn-primary" onclick="doSave();"><i class="fa fa-fw fa-save"></i> {{ucwords(__('Simpan'))}}</button>
+                <button type="button" name="save" id="saveBtn" class="btn btn-primary" onclick="showModal();"><i class="fa fa-fw fa-save"></i> {{ucwords(__('Simpan'))}}</button>
             </div>
         </div>
     </div>
@@ -55,8 +55,33 @@
     </div>
 </div>
 
+<body>
+    <div id="modal" class="modal-container"> 
+        <div class="modal-content"> 
+  
+            <h2>Konfirmasi</h2> 
+            <p class="confirmation-message"> 
+                Anda yakin akan menyimpan? 
+            </p> 
+  
+            <div class="button-container"> 
+                <button id="cancelBtn" class="btn btn-secondary"> Batal </button> 
+                <button id="actionBtn" class="btn btn-primary"> Ya </button> 
+            </div> 
+        </div> 
+    </div> 
+</body>
+
+<style>
+    .signature-canvas {
+        border: 2px solid #000;
+        margin-bottom: 10px;
+    }
+</style>
+
 <script>
     function doSave(){
+        hideModal();
         $('#form_result').html('');
 
         var device_category  = $('#device_category').val();
@@ -111,6 +136,21 @@
     function doBack(){
         setTimeout(function(){ window.location.href = '{{url('masters/device-category/index')}}'; }, 100);
     }
+
+    function showModal() { 
+        modal.style.display = 'flex'; 
+        $(effective_date).prop("disabled", true);
+        $(effective_date).blur(); 
+    } 
+
+    // Hide modal function 
+    function hideModal() { 
+        modal.style.display = 'none'; 
+        $(effective_date).prop("disabled", false);
+    } 
+
+    cancelBtn.addEventListener('click', hideModal); 
+    actionBtn.addEventListener('click', doSave);
 </script>
 
 @endsection
