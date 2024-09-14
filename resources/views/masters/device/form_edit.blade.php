@@ -229,6 +229,7 @@
                     }
                 }
             });
+            return false;
         });
         return false;
     }
@@ -237,20 +238,13 @@
         setTimeout(function(){ window.location.href = '{{url('masters/device/index')}}'; }, 100);
     }
 
-    function doBack(){
-        setTimeout(function(){ window.location.href = '{{url('masters/autorisation/index')}}'; }, 100);
-    }
-
     function showModal() { 
         modal.style.display = 'flex'; 
-        $(effective_date).prop("disabled", true);
-        $(effective_date).blur(); 
     } 
 
     // Hide modal function 
     function hideModal() { 
         modal.style.display = 'none'; 
-        $(effective_date).prop("disabled", false);
     } 
 
     cancelBtn.addEventListener('click', hideModal); 

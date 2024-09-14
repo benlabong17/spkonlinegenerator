@@ -32,7 +32,7 @@
                                 <label class="col-md-2">NIK</label>
                                 <div class="col-md-6">
                                     <input maxlength="50" id="nik" type="text" class="text-uppercase form-control" name="nik" title="NIK" placeholder="NIK">
-                                    <input name="brand_id" id="location_name_id" type="hidden"/>
+                                    <input name="detail_id" id="detail_id" type="hidden"/>
                                 </div>
                             </div>
 
@@ -155,6 +155,31 @@
     </div> <!-- End Row -->
 </div>
 
+<body>
+    <div id="modal" class="modal-container"> 
+        <div class="modal-content"> 
+  
+            <h2>Konfirmasi</h2> 
+            <p class="confirmation-message"> 
+                Anda yakin akan menghapus? 
+            </p> 
+  
+            <div class="button-container"> 
+                <button id="cancelBtn" class="btn btn-secondary"> Batal </button> 
+                <button id="actionBtn" class="btn btn-primary"> Ya </button> 
+            </div> 
+        </div> 
+    </div> 
+</body>
+
+<style>
+    .signature-canvas {
+        border: 2px solid #000;
+        margin-bottom: 10px;
+    }
+</style>
+
+
 <!-- Plugins js -->
 <script src="{{ asset('plugins/timepicker/bootstrap-timepicker.js') }}"></script>
 <script src="{{ asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
@@ -170,6 +195,8 @@
             format: 'dd/mm/yyyy',
             todayHighlight: 'TRUE',
         });
+
+        hideModal();
     });
 
     $(function() {
@@ -188,7 +215,7 @@
                   next: "<i class='fa fa-caret-right'></i>",
                   previous: "<i class='fa fa-caret-left'></i>"
                 },
-                lengthMenu:     "<div class=\"input-group\">_MENU_ &nbsp; / page</div>",
+                // lengthMenu:     "<div class=\"input-group\">_MENU_ &nbsp; / page</div>",
                 info:           "_START_ to _END_ of _TOTAL_ item(s)",
                 infoEmpty:      ""
             },
@@ -256,7 +283,10 @@
     location.replace('{{ url('masters/location/import-excel') }}');
 });
 
-    function deleteItem(id) {
+    function doDelete() {
+        var id = $('#detail_id').val();
+        hideModal();
+        // if(id == '') { return false; }
         $('#form_result').html('');
 
         artLoadingDialogDo("Please wait, we process your request..",function(){
@@ -297,6 +327,21 @@
             });
         });
     }
+
+    function deleteItem(id) { 
+        modal.style.display = 'flex'; 
+        $('#detail_id').val(id);
+        var cek = $('#detail_id').val();
+        console.log(cek);
+    } 
+
+    // Hide modal function 
+    function hideModal() { 
+        modal.style.display = 'none'; 
+    } 
+
+    cancelBtn.addEventListener('click', hideModal); 
+    actionBtn.addEventListener('click', doDelete);
 
     function showItem(id) {
         location.replace('{{ url('masters/autorisation/detail-data') }}/' + id);

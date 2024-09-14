@@ -129,6 +129,7 @@
                     }
                 }
             });
+            return false;
         });
         return false;
     }
@@ -139,14 +140,11 @@
 
     function showModal() { 
         modal.style.display = 'flex'; 
-        $(effective_date).prop("disabled", true);
-        $(effective_date).blur(); 
     } 
 
     // Hide modal function 
     function hideModal() { 
         modal.style.display = 'none'; 
-        $(effective_date).prop("disabled", false);
     } 
 
     cancelBtn.addEventListener('click', hideModal); 

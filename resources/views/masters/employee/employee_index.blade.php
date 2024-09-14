@@ -41,7 +41,7 @@
                                 <label class="col-md-2">NAMA KARYAWAN</label>
                                 <div class="col-md-6">
                                     <input id="employee_name" type="text" class="text-uppercase form-control" name="employee_name" title="NAMA KARYAWAN" placeholder="NAMA KARYAWAN">
-                                    <input name="employee_name_id" id="employee_name_id" type="hidden" />
+                                    <input name="detail_id" id="detail_id" type="hidden" />
                                 </div>
                             </div>
                         </div>
@@ -135,6 +135,30 @@
     </div> <!-- End Row -->
 </div>
 
+<body>
+    <div id="modal" class="modal-container"> 
+        <div class="modal-content"> 
+  
+            <h2>Konfirmasi</h2> 
+            <p class="confirmation-message"> 
+                Anda yakin akan menghapus? 
+            </p> 
+  
+            <div class="button-container"> 
+                <button id="cancelBtn" class="btn btn-secondary"> Batal </button> 
+                <button id="actionBtn" class="btn btn-primary"> Ya </button> 
+            </div> 
+        </div> 
+    </div> 
+</body>
+
+<style>
+    .signature-canvas {
+        border: 2px solid #000;
+        margin-bottom: 10px;
+    }
+</style>
+
 <script>
     $(function() {
         var oTable = $('#main-table').DataTable({
@@ -152,7 +176,7 @@
                     next: "<i class='fa fa-caret-right'></i>",
                     previous: "<i class='fa fa-caret-left'></i>"
                 },
-                lengthMenu: "<div class=\"input-group\">_MENU_ &nbsp; / page</div>",
+                // lengthMenu: "<div class=\"input-group\">_MENU_ &nbsp; / page</div>",
                 info: "_START_ to _END_ of _TOTAL_ item(s)",
                 infoEmpty: ""
             },
@@ -204,7 +228,9 @@
         });
     });
 
-    function deleteItem(id) {
+    function doDelete() {
+        var id = $('#detail_id').val();
+        hideModal();
         $('#form_result').html('');
 
         artLoadingDialogDo("Please wait, we process your request..",function(){
@@ -245,6 +271,21 @@
             });
         });
     }
+
+    function deleteItem(id) { 
+        modal.style.display = 'flex'; 
+        $('#detail_id').val(id);
+        var cek = $('#detail_id').val();
+        console.log(cek);
+    } 
+
+    // Hide modal function 
+    function hideModal() { 
+        modal.style.display = 'none'; 
+    } 
+
+    cancelBtn.addEventListener('click', hideModal); 
+    actionBtn.addEventListener('click', doDelete);
 
     function showItem(id) {
         // location.replace('{{ url('master/employee/') }}/' + id);
